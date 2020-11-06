@@ -1,3 +1,5 @@
+// gmc - by minusyt23
+
 const Electron = require("electron");
 const Speaker = require("speaker");
 
