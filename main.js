@@ -2,6 +2,7 @@
 
 const Electron = require("electron");
 const Speaker = require("speaker");
+const Sample = require("./engine/sample");
 
 function createWindow () {
   const win = new Electron.BrowserWindow({
@@ -28,3 +29,6 @@ Electron.app.on("activate", () => {
     createWindow();
   }
 });
+
+let s = new Sample([0, 128, 255, 128]);
+s.peekWave(1000, 22050, 0, 0);
