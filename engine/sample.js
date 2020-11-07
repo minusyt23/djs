@@ -2,37 +2,58 @@
 
 module.exports = class Sample {
   data = [];
-  hasDataChanged = true;
+  _dataIndex = 0;
+  _stepStep = 0;
 
   constructor(data) {
     this.data = data;
   }
 
-  peekWave(frequency, sampleRate, iter, canvas) {
-    // Check if there is a cached version of the sample //
-    if(!this.hasDataChanged) {;}
-
+  genBuffer(frequency, sampleRate, bufLen) { // Fixa il secondo, poi butta via questo
     const stepSample = frequency / sampleRate,
           stepCount = 1.0 / stepSample,
-          arraySize = Math.round(stepCount),
+          // arraySize = Math.round(stepCount),
           arrayStep = stepSample * (stepCount / this.data.length);
 
-    let stepStep = 0,
-        dataIndex = 0;
+    var sampleArray = new Uint8Array(bufLen);
 
-    let sampleArray = new Uint8Array(arraySize);
+    for (var i = 0; i < bufLen; i++) {
+      
+      this._stepStep += stepSample;
 
-    for (var i = 0; i < sampleArray.length; i++) {
-      stepStep += stepSample;
+      sampleArray[i] = this.data[this._dataIndex];
 
-      sampleArray[i] = this.data[dataIndex];
-
-      if(stepStep >= arrayStep) {
-        stepStep -= arrayStep;
-        dataIndex++;
+      if(this._stepStep >= arrayStep) {
+        this._dataIndex++; 
+        this._stepStep -= arrayStep;
+        this._dataIndex %= this.data.length;
       }
     }
 
-    console.log(sampleArray);
+    return sampleArray;
+  }
+
+  genBuffer2(frequency, sampleRate, bufLen) { // Fixa
+    const stepSample = frequency / sampleRate,
+          stepCount = 1.0 / stepSample,
+          // arraySize = Math.round(stepCount),
+          arrayStep = stepSample * (stepCount / this.data.length);
+
+    var sampleArray = new Uint8Array(bufLen);
+
+    for (var i = 0; i < bufLen; i++) {
+      
+      this._stepStep += stepSample;
+
+      sampleArray[i] = this.data[Math.round(this._dataIndex)];
+
+      if(this._stepStep >= arrayStep) {
+        this._dataIndex += (arrayStep <= stepSample) ? (stepSample / arrayStep) : 1; 
+        this._stepStep -= arrayStep;
+        this._dataIndex %= this.data.length;
+      }
+    }
+
+    return sampleArray;
   }
 }
