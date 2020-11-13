@@ -1,0 +1,36 @@
+// gmc - by minusyt23
+
+const Electron = require("electron");
+const Speaker = require("speaker");
+const Stream = require("stream");
+const Buffer = require("buffer");
+const Sample = require("./engine/sample");
+
+function createWindow () {
+  const win = new Electron.BrowserWindow({
+    width: 800,
+    height: 600,
+    webPreferences: {
+      nodeIntegration: true
+    }
+  })
+
+  win.setMenu(null);
+  win.loadFile("index.html");
+}
+
+Electron.app.whenReady().then(createWindow);
+
+Electron.app.on("window-all-closed", () => {
+  console.log("I am being executed.");
+
+  if (process.platform !== "darwin") {
+    Electron.app.quit();
+  }
+});
+
+Electron.app.on("activate", () => {
+  if (Electron.BrowserWindow.getAllWindows().length === 0) {
+    createWindow();
+  }
+});

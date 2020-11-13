@@ -9,7 +9,7 @@ module.exports = class Sample {
     this.data = data;
   }
 
-  genBuffer(frequency, sampleRate, bufLen) { // Fixa il secondo, poi butta via questo
+  genBuffer(frequency, sampleRate, bufLen) { // Fixa
     const stepSample = frequency / sampleRate,
           stepCount = 1.0 / stepSample,
           // arraySize = Math.round(stepCount),
@@ -21,31 +21,7 @@ module.exports = class Sample {
       
       this._stepStep += stepSample;
 
-      sampleArray[i] = this.data[this._dataIndex];
-
-      if(this._stepStep >= arrayStep) {
-        this._dataIndex++; 
-        this._stepStep -= arrayStep;
-        this._dataIndex %= this.data.length;
-      }
-    }
-
-    return sampleArray;
-  }
-
-  genBuffer2(frequency, sampleRate, bufLen) { // Fixa
-    const stepSample = frequency / sampleRate,
-          stepCount = 1.0 / stepSample,
-          // arraySize = Math.round(stepCount),
-          arrayStep = stepSample * (stepCount / this.data.length);
-
-    var sampleArray = new Uint8Array(bufLen);
-
-    for (var i = 0; i < bufLen; i++) {
-      
-      this._stepStep += stepSample;
-
-      sampleArray[i] = this.data[Math.round(this._dataIndex)];
+      sampleArray[i] = this.data[Math.floor(this._dataIndex)];
 
       if(this._stepStep >= arrayStep) {
         this._dataIndex += (arrayStep <= stepSample) ? (stepSample / arrayStep) : 1; 

@@ -1,7 +1,7 @@
 {
     "name": "gmc",
     "version": "0.0.1",
-    "main": "main.js",
+    "main": "start.js",
     "scripts": {
         "start": "electron ."
     }
