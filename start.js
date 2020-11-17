@@ -1,10 +1,6 @@
 // gmc - by minusyt23
 
 const Electron = require("electron");
-const Speaker = require("speaker");
-const Stream = require("stream");
-const Buffer = require("buffer");
-const Sample = require("./engine/sample");
 
 function createWindow () {
   const win = new Electron.BrowserWindow({
@@ -22,8 +18,6 @@ function createWindow () {
 Electron.app.whenReady().then(createWindow);
 
 Electron.app.on("window-all-closed", () => {
-  console.log("I am being executed.");
-
   if (process.platform !== "darwin") {
     Electron.app.quit();
   }
