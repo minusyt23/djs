@@ -1,6 +1,6 @@
 const Sample = require("./sample")
 
-module.exports = class Structure{
+module.exports = class Structure {
     pu1 = {
         // Sweep Stuff
         sweepPeriod: 0,
@@ -39,6 +39,7 @@ module.exports = class Structure{
 
         // Internal Variables Stuff
         currentVolume: 0, // For Volume Envelope
+        currentFrequency: 0, // For Vibrato
     }
 
     wav = {
@@ -46,9 +47,13 @@ module.exports = class Structure{
 
         volumeCode: 0,
         
+        // Frequency Stuff
         frequencyLSB: 0,
 
         frequencyMSB: 0,
+
+        // Internal Variables Stuff
+        currentFrequency: 0, // For Vibrato
     }
 
     noi = {
@@ -69,7 +74,6 @@ module.exports = class Structure{
         
         rightVIN: 1, // 1-bit (false / true)
         rightVolume: 7,
-        
     }
 
     samples = {
