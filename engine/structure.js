@@ -15,9 +15,7 @@ module.exports = class Structure {
         period: 0,
 
         // Frequency Stuff
-        frequencyLSB: 0,
-
-        frequencyMSB: 0,
+        frequency: 0,
 
         // Internal Variables Stuff
         currentVolume: 0, // For Volume Envelope
@@ -33,9 +31,7 @@ module.exports = class Structure {
         period: 0,
 
         // Frequency Stuff
-        frequencyLSB: 0,
-
-        frequencyMSB: 0,
+        frequency: 0,
 
         // Internal Variables Stuff
         currentVolume: 0, // For Volume Envelope
@@ -48,9 +44,7 @@ module.exports = class Structure {
         volumeCode: 0,
         
         // Frequency Stuff
-        frequencyLSB: 0,
-
-        frequencyMSB: 0,
+        frequency: 0,
 
         // Internal Variables Stuff
         currentFrequency: 0, // For Vibrato
@@ -94,5 +88,24 @@ module.exports = class Structure {
             0xFF, 0xFF, 0x00, 0x00
         ]),
         
+    }
+
+    emulator = {
+        pu1: {
+            index: 0, // Instruction Index
+            frames: 0,
+        },
+        pu2: {
+            index: 0, // Instruction Index
+            frames: 0,
+        },
+        wav: {
+            index: 0, // Instruction Index
+            frames: 0,
+        },
+        noi: {
+            index: 0, // Instruction Index
+            frames: 0,
+        },
     }
 }
