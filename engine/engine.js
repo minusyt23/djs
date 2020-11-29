@@ -68,11 +68,12 @@ module.exports = class Engine{
     }
 
     musicInterrupt = undefined;
-    frameSequencer = undefined;
+	frameSequencer = undefined;
+	fSTicks = 0;
 
-    play() {
+    play(buffer) {
         // Every 60 frames = 1 second
-        
+
         // Goes through every instruction before. Needed for simplicity of the system.
         var instrIndex = 0, addedFrames = 0;
         while(addedFrames <= this.cursorPos) {
@@ -84,7 +85,7 @@ module.exports = class Engine{
 
         // Sets frames for every channel
         // Code it, bstaard
-        
+
         // I don't really know what I'm doing. Continue tho
         // Advantages of using Javascript: Intervals! I can guarantee 100% accuracy
         var that = this;
@@ -94,7 +95,7 @@ module.exports = class Engine{
             for(var i = 0; i < that.structures.length; i++) {
 
                 if (that.structures[i].emulator.pu1.frames > 0) {
-                    that.structures[i].emulator.pu1.frames--; 
+                    that.structures[i].emulator.pu1.frames--;
                     that.cursorPos++;
                 } else {
                     that.structures[i].emulator.pu1.index++;
@@ -102,28 +103,49 @@ module.exports = class Engine{
                     let pu1index = that.structures[i].emulator.pu1.index;
                     let instruction = that.file.pu1[pu1index];
 
-                    if(instruction.instruction === 0) { // PLAY INSTRUCTION
-                        that.structures[i].pu1.frequency = that.midiGBTable[instruction.midi];
-                        that.structures[i].emulator.pu1.frames = instruction.frames;
-                    } else { // SET INSTRUCTION
-                        if(instruction.frames) that.structures[i].emulator.pu1.frames = instruction.frames;
-                        // WIP
-                    }
+                    that._fetchInstruction_PU1(instruction);
                 }
 
             }
 
-        }, (1 / 60) * 1000);
+        }, (1 / 59.7) * 1000);
 
         // inner logic of the chip
         this.frameSequencer = window.setInterval(() => {
-            
+			// if (that.fSTicks % 2 === 0) { ; } // LENGTH COUNTER, WE DON'T USE LENGTH
+			
+			if (that.fSTicks === 7) { // VOLUME ENVELOPE
+				for(var i = 0; i < that.structures.length; i++) {
+
+				}
+			}
+			if (that.fSTicks === 2 ||
+				that.fSTicks === 6) { // SWEEP ENVELOPE
+
+			}
+			
+			that.fSTicks++;
+			if(that.fSTicks > 7) that.fSTicks = 0;
         }, (1 / 512) * 1000);
-        
+
+
+        buffer._read = () => {
+			
+        }
     }
 
     init() {
         this.structures.push(new Structure());
-    }
+	}
+	
+	_fetchInstruction_PU1(instruction) {
+		if(instruction.instruction === 0) { // PLAY INSTRUCTION
+			this.structures[i].pu1.frequency = this.midiGBTable[instruction.midi];
+			this.structures[i].emulator.pu1.frames = instruction.frames;
+		} else { // SET INSTRUCTION
+			if(instruction.frames) this.structures[i].emulator.pu1.frames = instruction.frames;
+			// WIP
+		}
+	}
 
 }
