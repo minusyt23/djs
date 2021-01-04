@@ -4,4 +4,3 @@ Implement Mixer (MIX): A simple and fast mixer.
 Implement Tracker (TRK): The Tracks
 Implement Generators (GEN): What you'd call VSTs, Synthesizers, Plugins...
 Implement Modifiers (MOD): Anything that modifies the original sound. Applicable on the mixer.
-j
