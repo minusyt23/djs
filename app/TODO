@@ -1,3 +1,5 @@
-Implement engine
-Add Generators and Generators handler
-Add Modifiers and Modifiers handler
+Implement Mixer (MIX)
+Implement Runner (RUN)
+Implement Tracker (TRK)
+Implement Generators (GEN) 
+Implement Modifiers (MOD)
