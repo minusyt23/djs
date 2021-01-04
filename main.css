@@ -1,18 +1,1 @@
 body {margin: 0;}
-
-#topbar {
-    
-    position: fixed;
-    height: 128px;
-    width: 100%;
-
-    background: blue;
-}
-
-#topbar.enabled {
-    top: 0px;
-}
-
-#topbar.disabled {
-    top: -128px;
-}
