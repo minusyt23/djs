@@ -1,4 +1,4 @@
-### The runner
+# Runner
 The runner is basically what makes the other parts of the "engine" work.
 
 _RUN_ sends _TRK_ tick request

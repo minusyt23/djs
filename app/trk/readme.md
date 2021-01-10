@@ -1,4 +1,4 @@
-### The tracker
+# Tracker
 
 The tracker contains MIDI sequences, "Pulses" and Automations.
 

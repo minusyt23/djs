@@ -1,3 +1,5 @@
+# Generator
+
 A Generator is simply a little program working inside DJS, that outputs raw PCM data given some parameters. 
 
 This folder consists of two files, the handler and the builder.
